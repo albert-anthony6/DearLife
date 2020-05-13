@@ -1,4 +1,7 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const cors = require('cors');
+const app = require('./app');
+
+// START SERVER
+const port = 3000;
+app.listen(port, () => {
+    console.log('app running on port 3000');
+});
