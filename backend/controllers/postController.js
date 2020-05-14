@@ -4,6 +4,26 @@ const posts = JSON.parse(
     fs.readFileSync('./dev-data/data/posts-simple.json')
 );
 
+exports.checkBody = (req, res, next) => {
+    if(!req.body.title || !req.body.category){
+        return res.status(400).json({
+            status: 'fail',
+            message: 'Post must include title and category'
+        });
+    }
+    next();
+}
+
+exports.checkID = (req, res, next, val) => {
+    if(req.params.id * 1 > posts.length){
+        return res.status(404).json({
+            status: 'fail',
+            message: 'Invalid ID'
+        });
+    }
+    next();
+}
+
 exports.getAllPosts = (req, res) => {
     res.status(200).json({
         status: 'Success',
@@ -17,13 +37,6 @@ exports.getAllPosts = (req, res) => {
 exports.getPost = (req, res) => {
     const id = req.params.id * 1;
     const post = posts.find(el => el.id === id);
-
-    if(!post){
-        return res.status(404).json({
-            status: 'fail',
-            message: 'Invalid ID'
-        });
-    }
 
     res.status(200).json({
         status: 'Success',
@@ -50,13 +63,6 @@ exports.createPost = (req, res) => {
 }
 
 exports.updatePost = (req, res) => {
-    if(req.params.id * 1 > posts.length){
-        return res.status(404).json({
-            status: 'fail',
-            message: 'Invalid ID'
-        });
-    }
-    
     res.status(200).json({
         status: 'success',
         data: {
@@ -66,13 +72,6 @@ exports.updatePost = (req, res) => {
 }
 
 exports.deletePost = (req, res) => {
-    if(req.params.id * 1 > posts.length){
-        return res.status(404).json({
-            status: 'fail',
-            message: 'Invalid ID'
-        });
-    }
-    
     res.status(204).json({
         status: 'success',
         data: null
