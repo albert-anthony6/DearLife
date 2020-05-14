@@ -1,4 +1,5 @@
 const Post = require('../models/postModel');
+const APIFeatures = require('../utils/apiFeatures');
 
 exports.aliasTopPosts = (req, res, next) => {
     req.query.limit = 5;
@@ -9,42 +10,14 @@ exports.aliasTopPosts = (req, res, next) => {
 
 exports.getAllPosts = async (req, res) => {
     try{
-        // BUILD QUERY
-        const queryObj = { ...req.query };
-        const excludedFields = ['page', 'sort', 'limit', 'fields'];
-        excludedFields.forEach(el => delete queryObj[el]);
-        
-        let queryStr = JSON.stringify(queryObj);
-        queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
-        
-        let query = Post.find(JSON.parse(queryStr));
-
-        if(req.query.sort){
-            const sortBy = req.query.sort.split(',').join(' ');
-            query = query.sort(sortBy);
-        } else {
-            query = query.sort('-createdAt');
-        }
-
-        if(req.query.fields){
-            const fields = req.query.fields.split(',').join(' ');
-            query = query.select(fields);
-        } else {
-            query = query.select('-__v');
-        }
-
-        const page = req.query.page * 1 || 1;
-        const limit = req.query.limit * 1 || 100;
-        const skip = (page - 1) * limit;
-        query = query.skip(skip).limit(limit);
-
-        if(req.query.page){
-            const numPosts = await Post.countDocuments();
-            if(skip >= numPosts) throw new Error('This page does not exist!');
-        }
-
         // EXECUTE QUERY
-        const posts = await query;
+        const features = new APIFeatures(Post.find(), req.query)
+        .filter()
+        .sort()
+        .limitFields()
+        .paginate();
+
+        const posts = await features.query;
         
         // SEND RESPONSE
         res.status(200).json({
@@ -129,7 +102,7 @@ exports.deletePost = async (req, res) => {
     } catch(err) {
         res.status(400).json({
             status: 'fail',
-            message: 'Invalid data sent'
+            message: err
         });
     }
 }
