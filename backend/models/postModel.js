@@ -5,16 +5,16 @@ const slugify = require('slugify');
 const postSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: [true, 'A post must have a title.'],
+        required: [true, 'A post must have a title'],
         unique: true,
         trim: true,
-        maxlength: [40, 'A post name must have less or equal than 40 cahracters.'],
-        minlength: [10, 'A post name must have more or equal than 10 cahracters.']
+        maxlength: [40, 'A post name must have less or equal than 40 characters'],
+        minlength: [10, 'A post name must have more or equal than 10 characters']
     },
     slug: String,
     category: {
         type: String,
-        required: [true, 'A post must have a category.'],
+        required: [true, 'A post must have a category'],
         enum: {
             values: ['Movies', 'Video Games', 'YouTube', 'Miscellaneous', 'TV Shows', 'Animals', 'Food', 'Stories', 'music'],
             message: "Category must be either: 'Movies', 'Video Games', 'YouTube', 'Miscellaneous', 'TV Shows', 'Animals', 'Food', 'Stories', or 'music'" 
@@ -28,7 +28,7 @@ const postSchema = new mongoose.Schema({
     summary: {
         type: String,
         trim: true,
-        required: [true, 'A post must have a summary.']
+        required: [true, 'A post must have a summary']
     },
     description: {
         type: String,
@@ -36,7 +36,7 @@ const postSchema = new mongoose.Schema({
     },
     imageCover: {
         type: String,
-        required: [true, 'A post must have a cover image.']
+        required: [true, 'A post must have a cover image']
     },
     images: [String],
     createdAt: {
