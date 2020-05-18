@@ -2,7 +2,11 @@ const express = require('express');
 const postController = require('../controllers/postController');
 const authController = require('../controllers/authController');
 const router = express.Router();
-const commentController = require('../controllers/commentController');
+const commentRouter = require('../routes/commentRoutes');
+
+// NESTED ROUTES
+// Mounting this router
+router.use('/:postId/comments', commentRouter);
 
 router.route('/top-5-popular').get(postController.aliasTopPosts, postController.getAllPosts);
 
@@ -14,9 +18,5 @@ router.route('/:id')
 .get(postController.getPost)
 .patch(postController.updatePost)
 .delete(authController.protect, authController.restrictTo('admin', 'owner'), postController.deletePost);
-
-// NESTED ROUTES
-router.route('/:postId/comments')
-.post(authController.protect, authController.restrictTo('user'), commentController.createComment);
 
 module.exports = router;
