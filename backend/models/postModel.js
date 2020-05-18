@@ -43,10 +43,20 @@ const postSchema = new mongoose.Schema({
         type: Date,
         default: Date.now() // mongoose converts this to current date format instead of ms
     }
+},
+{
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
+});
+
+// VIRTUAL POPULATE
+postSchema.virtual('comments', {
+    ref: 'Comment',
+    foreignField: 'post',
+    localField:'_id'
 });
 
 // DOCUMENT MIDDLEWARE
-
 // Will only work for documents that are being saved to DB i.e. .save() or .create()
 postSchema.pre('save', function(next) {
     this.slug = slugify(this.title, { lower: true });

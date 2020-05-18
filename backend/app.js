@@ -10,6 +10,7 @@ const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const postRouter = require('./routes/postRoutes');
 const userRouter = require('./routes/userRoutes');
+const commentRouter = require('./routes/commentRoutes');
 
 const app = express();
 
@@ -47,6 +48,7 @@ app.use(hpp({
 // ROUTES
 app.use('/api/v1/posts', postRouter); // Mounting Routers
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/comments', commentRouter);
 
 app.all('*', (req, res, next) => { // Non-specified url error handler
     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
