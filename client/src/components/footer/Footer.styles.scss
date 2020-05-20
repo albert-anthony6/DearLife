@@ -1,0 +1,39 @@
+.footer{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: black;
+    width: 100vw;
+    padding: 1.2rem 0 1.2rem 0;
+    display: flex;
+    justify-content: space-between;
+    
+    &__list{
+        padding: 0 2rem 0 2rem;
+        display: flex;
+        list-style: none;
+        align-items: center;
+    }
+    
+    &__item{
+        &:not(:first-child){
+            margin-left: 10rem;
+        }
+        font-size: 1.5rem;
+    }
+    
+    &__link{
+        text-decoration: none;
+        color: rgba(194, 194, 194, 1);
+        transition: all .2s;
+
+        &:hover{
+            color: #fff;
+        }
+
+        &--icon{
+            font-size: 2.2rem;
+            margin: 0 2.5rem 0 2rem;
+        }
+    }
+}
