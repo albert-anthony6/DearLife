@@ -1,5 +1,5 @@
 .hero{
-  background-image: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0) ), url('../assets/images/bear.jpg');
+  background-image: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0) ), url('../../assets/images/bear.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -24,9 +24,12 @@
       font-weight: 500;
     }
 
-    button{
+    a{
+      text-decoration: none;
+      background-color: #fff;
       color: #000;
       cursor: pointer;
+      display: inline-block;
       margin-top: 3rem;
       border: none;
       outline: none;

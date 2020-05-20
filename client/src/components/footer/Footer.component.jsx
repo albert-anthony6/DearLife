@@ -35,10 +35,10 @@ const Footer = () => (
 
         <ul className="footer__list">
             <li>
-                <a className="footer__link footer__link--icon" href="https://github.com/albert-anthony6" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+                <a className="footer__link footer__link--icon" href="https://github.com/albert-anthony6" target="_blank" rel="noopener noreferrer"><i className="fab fa-github"></i></a>
             </li>
             <li>
-                <a className="footer__link footer__link--icon" href="https://www.linkedin.com/in/avaldes21/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+                <a className="footer__link footer__link--icon" href="https://www.linkedin.com/in/avaldes21/" target="_blank" rel="noopener noreferrer"><i className="fab fa-linkedin"></i></a>
             </li>
         </ul>
     </footer>
