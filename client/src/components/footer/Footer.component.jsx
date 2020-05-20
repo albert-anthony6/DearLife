@@ -1,6 +1,8 @@
 import React from 'react';
 import './Footer.styles.scss';
 
+// 'Movies', 'Video Games', 'YouTube', 'Miscellaneous', 'TV Shows', 'Animals', 'Food', 'Stories', 'music'
+
 const Footer = () => (
     <footer className="footer">
         <ul className="footer__list">
@@ -20,16 +22,16 @@ const Footer = () => (
                 <a href="https://www.Google.com" className="footer__link">Blog</a>
             </li>
             <li className="footer__item">
-                <a href="https://www.Google.com" className="footer__link">Help forum</a>
+                <a href="https://www.Google.com" className="footer__link">Portfolio</a>
             </li>
             <li className="footer__item">
-                <a href="https://www.Google.com" className="footer__link">Developers</a>
-            </li>
-            <li className="footer__item">
-                <a href="https://www.Google.com" className="footer__link">Jobs</a>
+                <a href="https://www.Google.com" className="footer__link">API</a>
             </li>
             <li className="footer__item">
                 <a href="https://www.Google.com" className="footer__link">Contact</a>
+            </li>
+            <li className="footer__item">
+                <a href="https://www.Google.com" className="footer__link">Catergories &#9660;</a>
             </li>
         </ul>
 

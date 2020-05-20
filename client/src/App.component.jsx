@@ -1,8 +1,11 @@
 import React from 'react';
 import './App.styles.scss';
 import { Switch, Route } from 'react-router-dom';
+
 import Home from './pages/home/Home.component';
 import LogIn from './pages/login/LogIn.component';
+import Posts from './pages/posts/Posts.component';
+
 import Header from './components/header/Header.component';
 
 const App = () => (
@@ -11,6 +14,7 @@ const App = () => (
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/login" component={LogIn} />
+      <Route exact path="/posts" component={Posts} />
       {/* <Route path="*" component={NotFound} /> */}
     </Switch>
   </div>

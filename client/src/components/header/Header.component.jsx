@@ -10,13 +10,13 @@ const Header = () => (
         
         <ul className="nav__list">
             <li className="nav__item">
-                <a href="http://www.Google.com" className="nav__link">Search</a>
+                <Link to="/posts" className="nav__link">All Posts</Link>
             </li>
             <li className="nav__item">
                 <Link to="/login" className="nav__link">Log In</Link>
             </li>
             <li className="nav__item">
-                <a href="http://www.Google.com" className="nav__link nav__link--active">Sign Up</a>
+                <Link to="/login" className="nav__link nav__link--active">Sign Up</Link>
             </li>
         </ul>
     </header>
