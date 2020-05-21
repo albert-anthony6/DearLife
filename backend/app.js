@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
+const cookieParser = require('cookie-parser');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -33,6 +34,7 @@ app.use('/api', limiter);
 
 // Body parser, reading data from the body into req.body
 app.use(express.json({ limit: '10kb' })); // Data from the body is added to req
+app.use(cookieParser()); // Parses data from cookies
 
 // Data sanitization against NoSQL query injection
 app.use(mongoSanitize());
@@ -44,6 +46,12 @@ app.use(xss());
 app.use(hpp({
     whitelist: ['commentsQuantity', 'category', 'slug']
 }));
+
+// Test middlware
+app.use((req, res, next) => {
+    console.log(req.cookies);
+    next();
+});
 
 // ROUTES
 app.use('/api/v1/posts', postRouter); // Mounting Routers

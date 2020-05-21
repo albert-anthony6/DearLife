@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './LogInSignUp.styles.scss';
 import axios from 'axios';
 
 const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [user, setUser] = useState(null);
 
     const login = async (email, password) => {
         try{
@@ -17,18 +18,34 @@ const SignIn = () => {
                 }
             });
             console.log(res);
+            setUser(res.data.data.user);
         } catch(err) {
             console.log(err.response.data);
         }
     };
-
+    
     const handleSubmit = e => {
         e.preventDefault();
+        console.log('Getting user from API...');
         login(email, password);
         setEmail('');
         setPassword('');
     };
 
+    useEffect(() => {
+        if(sessionStorage.user){
+            console.log('Getting from session storage...');
+            setUser(JSON.parse(sessionStorage.user));
+        }
+    }, []);
+    
+    useEffect(() => {
+        if(!user) return;
+        console.log('Writing to session storage...');
+        sessionStorage.setItem('user', JSON.stringify(user));
+    }, [user]);
+    
+    console.log(user);
     return(
         <form onSubmit={handleSubmit} className="form form--signin">
             <h2 className="form__h2">Log into your account</h2>
