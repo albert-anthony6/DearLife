@@ -1,0 +1,18 @@
+.alerts{
+    background-color: red;
+    display: inline-block;
+    padding: 1rem 2rem 1rem 2rem;
+    border-radius: 3px;
+    width: 40rem;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+
+    &__text{
+        font-weight: 300;
+        font-size: 1.5rem;
+    }
+}

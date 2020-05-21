@@ -1,7 +1,8 @@
 import { UserActionTypes } from "./user.types";
 
 const INITIAL_STATE = {
-    globalUser: null
+    globalUser: null,
+    status: ''
 }
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -11,6 +12,12 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 globalUser: action.payload
             }
+
+            case UserActionTypes.SET_USER_STATUS:
+                return {
+                    ...state,
+                    status: action.payload
+                }
 
         default:
             return state;

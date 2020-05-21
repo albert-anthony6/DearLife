@@ -3,9 +3,9 @@ import './LogInSignUp.styles.scss';
 import axios from 'axios';
 
 import { connect } from 'react-redux';
-import { setCurrentUser } from '../../redux/user/user.actions';
+import { setUserStatus } from '../../redux/user/user.actions';
 
-const SignIn = ({ setCurrentUser }) => {
+const SignIn = ({ setUserStatus }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [user, setUser] = useState(null);
@@ -23,13 +23,13 @@ const SignIn = ({ setCurrentUser }) => {
             console.log(res);
             setUser(res.data.data.user);
             if(res.data.status === 'success') {
-                alert('Logged in successfully!');
+                setUserStatus(res.data.status);
                 window.setTimeout(() => {
                     window.location.assign('/');
                 }, 1500)
             }
         } catch(err) {
-            alert(err.response.data.message);
+            setUserStatus(err.response.data.message);
         }
     };
     
@@ -62,7 +62,7 @@ const SignIn = ({ setCurrentUser }) => {
 )};
 
 const mapDispatchToProps = dispatch => ({
-    setCurrentUser: user => dispatch(setCurrentUser(user))
+    setUserStatus: status => dispatch(setUserStatus(status))
 });
 
 export default connect(null, mapDispatchToProps)(SignIn);
