@@ -1,5 +1,6 @@
 import React from 'react';
 import './Post.styles.scss';
+import { Link } from 'react-router-dom';
 
 const Post = ({ post }) => (
     <div className="post">

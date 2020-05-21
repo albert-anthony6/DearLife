@@ -1,12 +1,12 @@
 .post{
     width: 50rem;
     color: #000;
-    height: 50rem;
     margin-bottom: 2rem;
 
     &__img{
         width: 100%;
         height: auto;
+        cursor: pointer;
     }
 
     &__h3{
