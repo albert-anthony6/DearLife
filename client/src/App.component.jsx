@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.styles.scss';
 import { Switch, Route } from 'react-router-dom';
 
@@ -8,16 +8,36 @@ import Posts from './pages/posts/Posts.component';
 
 import Header from './components/header/Header.component';
 
-const App = () => (
-  <div className="app">
-    <Header/>
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/login" component={LogIn} />
-      <Route exact path="/posts" component={Posts} />
-      {/* <Route path="*" component={NotFound} /> */}
-    </Switch>
-  </div>
-);
+import { connect } from 'react-redux';
+import { setCurrentUser } from './redux/user/user.actions';
 
-export default App;
+const App = ({ globalUser, setCurrentUser }) => {
+  useEffect(() => {
+    if(sessionStorage.user){
+      console.log('Getting from session storage...');
+      setCurrentUser(JSON.parse(sessionStorage.user));
+    }
+  }, []);
+
+  return(
+    <div className="app">
+      <Header user={globalUser}/>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/login" component={LogIn} />
+        <Route exact path="/posts" component={Posts} />
+        {/* <Route path="*" component={NotFound} /> */}
+      </Switch>
+    </div>
+  );
+};
+
+const mapStateToProps = state => ({
+  globalUser: state.user.globalUser
+});
+
+const mapDispatchToProps = dispatch => ({
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

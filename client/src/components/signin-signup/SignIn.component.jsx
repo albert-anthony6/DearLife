@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './LogInSignUp.styles.scss';
 import axios from 'axios';
 
-const SignIn = () => {
+import { connect } from 'react-redux';
+import { setCurrentUser } from '../../redux/user/user.actions';
+
+const SignIn = ({ setCurrentUser }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [user, setUser] = useState(null);
@@ -19,8 +22,14 @@ const SignIn = () => {
             });
             console.log(res);
             setUser(res.data.data.user);
+            if(res.data.status === 'success') {
+                alert('Logged in successfully!');
+                window.setTimeout(() => {
+                    window.location.assign('/');
+                }, 1500)
+            }
         } catch(err) {
-            console.log(err.response.data);
+            alert(err.response.data.message);
         }
     };
     
@@ -31,13 +40,6 @@ const SignIn = () => {
         setEmail('');
         setPassword('');
     };
-
-    useEffect(() => {
-        if(sessionStorage.user){
-            console.log('Getting from session storage...');
-            setUser(JSON.parse(sessionStorage.user));
-        }
-    }, []);
     
     useEffect(() => {
         if(!user) return;
@@ -45,7 +47,6 @@ const SignIn = () => {
         sessionStorage.setItem('user', JSON.stringify(user));
     }, [user]);
     
-    console.log(user);
     return(
         <form onSubmit={handleSubmit} className="form form--signin">
             <h2 className="form__h2">Log into your account</h2>
@@ -60,4 +61,8 @@ const SignIn = () => {
         </form>
 )};
 
-export default SignIn;
+const mapDispatchToProps = dispatch => ({
+    setCurrentUser: user => dispatch(setCurrentUser(user))
+});
+
+export default connect(null, mapDispatchToProps)(SignIn);
