@@ -2,16 +2,14 @@ import React, { useState, useEffect } from 'react';
 import './PostDetails.styles.scss';
 import axios from 'axios';
 
-import { connect } from 'react-redux';
-
-const PostDetails = ({ postId }) => {
+const PostDetails = ({ match }) => {
     const [details, setDetails] = useState(null);
 
     const getPost = async () => {
         try{
             const res = await axios({
                 method: 'GET',
-                url: `/api/v1/posts/${postId}`
+                url: `/api/v1/posts/${match.params.id}`
             });
             console.log(res);
             setDetails(res.data.data.data);
@@ -21,9 +19,9 @@ const PostDetails = ({ postId }) => {
     };
 
     useEffect(() => {
-        if(sessionStorage.getItem(`${postId}`)) {
-            console.log("Getting from session storage...");
-            setDetails(JSON.parse(sessionStorage.getItem(`${postId}`)));
+        if(localStorage.getItem(`${match.params.id}`)) {
+            console.log("Getting from local storage...");
+            setDetails(JSON.parse(localStorage.getItem(`${match.params.id}`)));
         } else {
             console.log("Fetching from API...");
             getPost();
@@ -31,11 +29,10 @@ const PostDetails = ({ postId }) => {
     }, []);
     
     useEffect(() => {
-        console.log("Writing to session storage...");
-        sessionStorage.setItem(`${postId}`, JSON.stringify(details));
+        console.log("Writing to local storage...");
+        localStorage.setItem(`${match.params.id}`, JSON.stringify(details));
     }, [details]);
 
-    console.log(details);
     return(
         <div className="postdetails">
             POST DETAILS
@@ -43,8 +40,4 @@ const PostDetails = ({ postId }) => {
     );
 };
 
-const mapStateToProps = state => ({
-    postId: state.post.postId
-});
-
-export default connect(mapStateToProps)(PostDetails);
+export default PostDetails;
