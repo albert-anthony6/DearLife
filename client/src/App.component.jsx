@@ -27,7 +27,7 @@ const App = ({ globalUser, setCurrentUser }) => {
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={LogIn} />
         <Route exact path="/posts" component={Posts} />
-        <Route exact path="/posts/:slug" component={PostDetails} />
+        <Route exact path="/posts/:slug/:id" component={PostDetails} />
         {/* <Route path="*" component={NotFound} /> */}
       </Switch>
     </div>

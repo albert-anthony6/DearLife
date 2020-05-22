@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './PostDetails.styles.scss';
 import axios from 'axios';
 
 import { connect } from 'react-redux';
-import { setPostDetails } from '../../redux/redux-post/post.actions';
 
-const PostDetails = ({ postId, postDetails, setPostDetails }) => {
+const PostDetails = ({ postId }) => {
+    const [details, setDetails] = useState(null);
 
     const getPost = async () => {
         try{
@@ -13,17 +13,17 @@ const PostDetails = ({ postId, postDetails, setPostDetails }) => {
                 method: 'GET',
                 url: `/api/v1/posts/${postId}`
             });
-            // console.log(res);
-            setPostDetails(res.data.data.data);
+            console.log(res);
+            setDetails(res.data.data.data);
         } catch(err) {
             console.log(err.response.data.message);
         }
     };
 
     useEffect(() => {
-        if(sessionStorage.postDetails) {
+        if(sessionStorage.getItem(`${postId}`)) {
             console.log("Getting from session storage...");
-            setPostDetails(JSON.parse(sessionStorage.postDetails));
+            setDetails(JSON.parse(sessionStorage.getItem(`${postId}`)));
         } else {
             console.log("Fetching from API...");
             getPost();
@@ -32,9 +32,10 @@ const PostDetails = ({ postId, postDetails, setPostDetails }) => {
     
     useEffect(() => {
         console.log("Writing to session storage...");
-        sessionStorage.setItem('postDetails', JSON.stringify(postDetails));
-    }, [postDetails]);
+        sessionStorage.setItem(`${postId}`, JSON.stringify(details));
+    }, [details]);
 
+    console.log(details);
     return(
         <div className="postdetails">
             POST DETAILS
@@ -43,12 +44,7 @@ const PostDetails = ({ postId, postDetails, setPostDetails }) => {
 };
 
 const mapStateToProps = state => ({
-    postId: state.post.postId,
-    postDetails: state.post.postDetails
+    postId: state.post.postId
 });
 
-const mapDispatchToProps = dispatch => ({
-    setPostDetails: details => dispatch(setPostDetails(details))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostDetails);
+export default connect(mapStateToProps)(PostDetails);

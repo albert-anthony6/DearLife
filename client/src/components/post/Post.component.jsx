@@ -12,7 +12,7 @@ const Post = ({ post, slug, setPostId, id }) => {
 
     return(
         <div className="post">
-            <Link to={`/posts/${slug}`} onClick={() => postId(id)}>
+            <Link to={`/posts/${slug}/${id}`} onClick={() => postId(id)}>
                 <img className="post__img" src={post.imageCover} alt="image"/>
             </Link>
             <h3 className="post__h3">{post.title}</h3>

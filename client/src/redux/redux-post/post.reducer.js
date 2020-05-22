@@ -1,8 +1,7 @@
 import { PostActionTypes } from "./post.types";
 
 const INITIAL_STATE = {
-    postId: null,
-    postDetails: null
+    postId: null
 }
 
 const postReducer = (state = INITIAL_STATE, action) => {
@@ -12,12 +11,6 @@ const postReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 postId: action.payload
             }
-
-            case PostActionTypes.SET_CURRENT_POST:
-                return {
-                    ...state,
-                    postDetails: action.payload
-                }
 
         default:
             return state;
