@@ -13,7 +13,7 @@ const LogIn = ({ status, setUserStatus }) => {
             setUserStatus('');
         }, 2000);
     }
-
+    
     return(
         <div className="login-signup">
             {!status ? null : <Alerts/>}

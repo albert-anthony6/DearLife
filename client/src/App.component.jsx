@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import Home from './pages/home/Home.component';
 import LogIn from './pages/login/LogIn.component';
 import Posts from './pages/posts/Posts.component';
+import PostDetails from './pages/post-details/PostDetails.component';
 
 import Header from './components/header/Header.component';
 
@@ -26,6 +27,7 @@ const App = ({ globalUser, setCurrentUser }) => {
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={LogIn} />
         <Route exact path="/posts" component={Posts} />
+        <Route exact path="/posts/:slug" component={PostDetails} />
         {/* <Route path="*" component={NotFound} /> */}
       </Switch>
     </div>
