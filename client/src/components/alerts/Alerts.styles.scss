@@ -1,5 +1,5 @@
 .alerts{
-    background-color: red;
+    display: none;
     display: inline-block;
     padding: 1rem 2rem 1rem 2rem;
     border-radius: 3px;
@@ -10,9 +10,29 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: 999;
+    animation: showAlert .2s;
+
+    &--ok{
+        display: block;
+        background-color: green;
+    }
+
+    &--bad{
+        display: block;
+        background-color: red;
+    }
 
     &__text{
         font-weight: 300;
         font-size: 1.5rem;
+    }
+
+    @keyframes showAlert {
+        from{
+            transform: translate(-50%, -10px);
+        }
+        to {
+            transform: translate(-50%, 0px);
+        }
     }
 }
